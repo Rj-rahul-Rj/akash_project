@@ -243,8 +243,8 @@ class QuotationresponseController extends Controller
           $res = $insert->save();
          
           try{
-            // $mail_data['email'] = 'rahuljoshi13jan90@gmail.com';
-            $mail_data['email'] = $supplier_data->email;
+            $mail_data['email'] = 'rahuljoshi13jan90@gmail.com';
+            // $mail_data['email'] = $supplier_data->email;
   
             $mail_data['reference_no'] = $supplier_id;
   
@@ -253,13 +253,15 @@ class QuotationresponseController extends Controller
             $mail_data['total_price'] = $product->price;
   
             $mail_data['counter_offer_by_admin'] = $counteroffer;
-            $share_link = 'http://kheltoh.tech/supplier-view-quotation-list/'.$supplier_id;
+            // $share_link = 'http://kheltoh.tech/supplier-view-quotation-list/'.$supplier_id;
+            $share_link = 'http://localhost:8000/quotations/quotationList/'.$supplier_id;
               
             $data = ['message' => 'Counter Offer by admin to your product !','email_id' => $mail_data['email'],'share_id' => $share_link,'ref_no' =>$supplier_id ];
             
             $check = Mail::to($mail_data['email'])->send(new SupplierQuatEmail($data));
             
-            $message = 'Mail send';
+            // $message = 'Mail send';
+            return redirect()->back()->with('message', 'Submitted Successfully');
 
         }
 
@@ -274,6 +276,6 @@ class QuotationresponseController extends Controller
       return $message;
     }
 
-
+    
 }
 

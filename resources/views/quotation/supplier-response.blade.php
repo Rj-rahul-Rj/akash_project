@@ -259,7 +259,7 @@
             </div>
         </div>
      </div>
-        <div>
+    <div>
         <!-- Modal Accept -->
         <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -277,10 +277,10 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
       
         <!-- Modal Counter Offer -->
-      <div>
+    <div>
       <div class="modal fade" id="counterModal" tabindex="-1" aria-labelledby="counterModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="width:162% !important">
@@ -302,7 +302,7 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
       
 

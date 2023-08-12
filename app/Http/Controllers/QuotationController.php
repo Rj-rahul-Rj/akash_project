@@ -70,6 +70,9 @@ use Illuminate\Support\Facades\Validator;
 
 use Session;
 
+use App\counteroffer;
+
+
 class QuotationController extends Controller
 
 {
@@ -236,7 +239,7 @@ class QuotationController extends Controller
        $supplier = QuotationEmail::with('supplier')->where('ref_no',$id)->first();
 
         $quotation_response = QuotationResponse::with('product')->with('unit')->where('quotation_id',$supplier->quotation_id)->get();
-
+        
         $brandData = [];
         if (isset($quotation_response)) {
             $brandData = json_decode($quotation_response->pluck('brand')->toArray()[0], true);
@@ -2057,6 +2060,72 @@ class QuotationController extends Controller
         return redirect('quotations')->with('not_permitted', 'Quotation deleted successfully');
 
     }
+
+    public function quotationList($id){
+    $quotation_ref_data = QuotationEmail::where('ref_no',$id)->first();
+    $supplier_data = Supplier::find($quotation_ref_data->supplier_id);
+    $data  = counteroffer::where('receiver_id',$supplier_data->id)->paginate(10);
+
+    $record = [];
+    foreach($data as $dat){
+        $product = Product::select('name')->where('id',$dat->product_id)->first();
+        $dat1['id'] = $dat->id;
+        $dat1['product_name'] = $product->name;
+        $dat1['brand'] = $dat->brand;
+        $dat1['actual_price'] = $dat->actual_price;
+        $dat1['counter_offer_by_admin'] = $dat->counter_offer_by_admin;
+        $dat1['counter_offer_by_seller'] = $dat->counter_offer_by_seller;
+        $dat1['status'] = $dat->status;
+        $record [] = $dat1;
+    }
+    return view('quotation.list',compact('record'));
+    }
+
+    public function getCounterProductItem(Request $request)
+    {
+      // print_r($request->all());die;
+        $arr =[];
+        $arr1 =[];
+        $record = [];
+        $name = '';
+        // foreach($request->val as $data){
+        
+              $query = counteroffer::where('id', $data)->get();
+              foreach($query as $dat){
+                $product = Product::select('name')->where('id',$dat->product_id)->first();
+                $dat1['id'] = $dat->id;
+                $dat1['product_name'] = $product->name;
+                $dat1['brand'] = $dat->brand;
+                $dat1['actual_price'] = $dat->actual_price;
+                $dat1['counter_offer_by_admin'] = $dat->counter_offer_by_admin;
+                $dat1['counter_offer_by_seller'] = $dat->counter_offer_by_seller;
+                $dat1['status'] = $dat->status;
+                $record [] = $dat1;
+            }
+        //   }
+         
+           
+            echo json_encode($record);
+      
+        
+        // foreach($data as $data1){
+        // $dat['name']=$data1->name;
+        // foreach($data as $data2){
+        //   $dat1['brand']=$data2->brand;
+        //   $dat1['id']=$data2->id;
+        //   $dat1['price']=$data2->price;
+        //   $dat2['option'] = $dat1;
+        //   $arr[]=$dat2;
+        // }
+        // array_push($arr,$dat);
+        
+        // $arr[]=$dat;
+        // $dt = array_merge($arr,$arr1);
+      // }
+     
+      
+    }
+
 
 }
 

@@ -24,6 +24,7 @@ Route::get('supplier-view-quotation-list/{slug}', 'QuotationresponseController@i
 
 Route::post('getproductItem/','QuotationresponseController@getproductItem')->name('getproductItem');
 Route::post('counteroffer','QuotationresponseController@counteroffer')->name('counteroffer');
+Route::post('getCounterProductItem','QuotationController@getCounterProductItem')->name('getCounterProductItem');
 
 
 Route::group(['middleware' => ['auth', 'active']], function() {
@@ -125,6 +126,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	
 	Route::post('quotations/quotation-product-search-list', 'QuotationController@quotationProductSearchList')->name('quotations/quotation-product-search-list');
 	Route::get('quotations/quotation-supplier-response/{id}', 'QuotationController@supplierResponse')->name('quotation-supplier-response');
+	Route::get('quotations/quotationList/{id}', 'QuotationController@quotationList')->name('quotationList');
 	Route::get('quotations/supplier-response-list', 'QuotationController@supplierResponseList')->name('supplier-response-list');
 	
 	Route::post('admin-supplier-view-quotation-list/{slug}', 'QuotationController@adminToSupplierReponse')->name('admin-supplier-view-quotation-list');
