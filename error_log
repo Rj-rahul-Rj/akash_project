@@ -1,0 +1,1 @@
+[27-May-2023 18:15:47 Asia/Kolkata] PHP Fatal error:  Can't use method return value in write context in /home/kheltoh/public_html/app/Http/Controllers/ProductController.php on line 68
